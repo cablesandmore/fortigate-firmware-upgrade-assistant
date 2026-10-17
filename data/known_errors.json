@@ -1,0 +1,25 @@
+{
+  "Timeout connecting to FortiGuard": {
+    "causa": "Problema de conectividad hacia los servidores FortiGuard.",
+    "comandos": [
+      "execute ping service.fortiguard.net",
+      "execute traceroute service.fortiguard.net",
+      "diagnose debug rating"
+    ]
+  },
+  "Firmware validation failed": {
+    "causa": "Imagen de firmware corrupta o incompatible.",
+    "comandos": [
+      "Verificar checksum",
+      "Descargar nuevamente el firmware",
+      "Validar modelo de equipo"
+    ]
+  },
+  "No valid upgrade path found": {
+    "causa": "La versión requiere upgrades intermedios.",
+    "comandos": [
+      "Consultar Upgrade Path Tool",
+      "Revisar Release Notes"
+    ]
+  }
+}

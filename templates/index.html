@@ -1,42 +1,166 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>FortiGate Firmware Upgrade Assistant</title>
-</head>
-<body>
+<html lang="en">
 
-<h1>FortiGate Firmware Upgrade Assistant</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FortiGate Upgrade Assistant</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container mt-5">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-danger text-white">
+                <h2>FortiGate Firmware Upgrade Assistant</h2>
+            </div>
+
+            <div class="card-body">
+
+                <p>
+                    Consulta rutas de actualización recomendadas para dispositivos FortiGate.
+                </p>
+
+                <form method="POST">
+
+                    <div class="mb-3">
+                        <label class="form-label">Modelo</label>
+
+                        <select class="form-select" name="modelo">
+                            <option value="FG-60F">FG-60F</option>
+                            <option value="FG-100F">FG-100F</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Versión Actual</label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="version"
+                            placeholder="Ejemplo: 6.4.8">
+                    </div>
+
+                    <button class="btn btn-primary">
+                        Buscar Ruta de Upgrade
+                    </button>
+
+                </form>
+
+                {% if resultado %}
+
+                <hr>
+
+                <h4>Ruta Recomendada</h4>
+
+                <ul class="list-group">
+
+                    {% for paso in resultado %}
+
+                    <li class="list-group-item">
+                        {{ paso }}
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+                <hr>
+
+                <h4>Checklist Pre-Upgrade</h4>
+
+                <ul>
+                    <li>✅ Backup de configuración</li>
+                    <li>✅ Revisar Release Notes</li>
+                    <li>✅ Confirmar acceso por consola</li>
+                    <li>✅ Validar espacio disponible</li>
+                    <li>✅ Confirmar ventana de mantenimiento</li>
+                    <li>✅ Verificar estado de HA</li>
+                </ul>
+
+                <h4>Checklist Post-Upgrade</h4>
+
+                <ul>
+                    <li>✅ Confirmar versión instalada</li>
+                    <li>✅ Verificar VPNs</li>
+                    <li>✅ Validar OSPF/BGP</li>
+                    <li>✅ Revisar logs</li>
+                    <li>✅ Verificar acceso GUI y SSH</li>
+                    <li>✅ Validar conectividad general</li>
+                </ul>
+
+                {% endif %}
+
+                <hr>
+
+<h4>Analizador de Errores</h4>
 
 <form method="POST">
 
-    <label>Modelo:</label>
+    <div class="mb-3">
 
-    <select name="modelo">
-        <option value="FG-60F">FG-60F</option>
-        <option value="FG-100F">FG-100F</option>
-    </select>
+        <select name="error_text" class="form-select">
 
-    <br><br>
+            <option value="">
+                Seleccione un error
+            </option>
 
-    <label>Versión actual:</label>
+            <option value="Timeout connecting to FortiGuard">
+                Timeout connecting to FortiGuard
+            </option>
 
-    <input type="text" name="version">
+            <option value="Firmware validation failed">
+                Firmware validation failed
+            </option>
 
-    <br><br>
+            <option value="No valid upgrade path found">
+                No valid upgrade path found
+            </option>
 
-    <button type="submit">Buscar Ruta</button>
+        </select>
+
+    </div>
+
+    <button class="btn btn-warning">
+        Analizar Error
+    </button>
 
 </form>
 
-{% if resultado %}
-<h2>Ruta Recomendada</h2>
+{% if error_info %}
 
-<ul>
-{% for paso in resultado %}
-<li>{{ paso }}</li>
-{% endfor %}
-</ul>
+<div class="alert alert-info mt-3">
+
+    <h5>Causa Probable</h5>
+
+    <p>{{ error_info.causa }}</p>
+
+    <h5>Comandos Sugeridos</h5>
+
+    <ul>
+
+        {% for comando in error_info.comandos %}
+            <li>{{ comando }}</li>
+        {% endfor %}
+
+    </ul>
+
+</div>
+
 {% endif %}
 
+
+            </div>
+
+        </div>
+
+    </div>
+
 </body>
+
 </html>
