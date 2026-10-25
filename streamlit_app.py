@@ -30,7 +30,6 @@ modelo_gemini = genai.GenerativeModel("gemini-2.5-flash")
 # --------------------------
 # Cabecera
 # --------------------------
-
 st.set_page_config(
     page_title="FortiGate Firmware Upgrade Assistant",
     page_icon="🛡️",
