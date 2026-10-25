@@ -1,9 +1,11 @@
 import streamlit as st
 import json
 import os
-from google import genai
+import google.generativeai as genai
 
+# --------------------------
 # Gemini
+# --------------------------
 
 api_key = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
 
