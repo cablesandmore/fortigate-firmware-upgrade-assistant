@@ -25,7 +25,7 @@ api_key = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
 
 genai.configure(api_key=api_key)
 
-modelo_gemini = genai.GenerativeModel("gemini-1.5-flash")  
+modelo_gemini = genai.GenerativeModel("gemini-2.5-flash")  
 
 # --------------------------
 # Cabecera
