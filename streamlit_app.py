@@ -115,7 +115,6 @@ if st.button("Analizar Error"):
 
         for cmd in info["comandos"]:
             st.code(cmd)
-
 # --------------------------
 # Footer
 # --------------------------
