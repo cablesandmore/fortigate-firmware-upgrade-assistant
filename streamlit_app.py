@@ -152,7 +152,7 @@ if st.button("Consultar IA"):
 
     else:
 
-        try:
+         try:
 
             with st.spinner(
                 "Consultando asistente IA..."
@@ -184,16 +184,16 @@ Consulta:
 
                 st.write(respuesta.text)
 
-                except Exception as e:
+        except Exception as e:
 
-                    if "429" in str(e):
+            if "429" in str(e):
 
-                    st.warning(
+                st.warning(
                     "Se alcanzó el límite diario de consultas de Gemini. "
                     "Inténtalo nuevamente más tarde."
                 )
 
-                    else:
+            else:
 
                 st.error(
                     f"Error consultando Gemini: {e}"
