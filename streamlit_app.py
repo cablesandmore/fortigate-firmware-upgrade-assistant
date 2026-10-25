@@ -1,5 +1,6 @@
 import streamlit as st
 import json
+import google.generativeai as genai
 
 # --------------------------
 # Cargar datos
@@ -10,6 +11,14 @@ with open("data/firmware_paths.json") as f:
 
 with open("data/known_errors.json") as f:
     error_data = json.load(f)
+
+import os
+
+api_key = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
+
+genai.configure(api_key=api_key)
+
+modelo_gemini = genai.GenerativeModel("gemini-1.5-flash")  
 
 # --------------------------
 # Cabecera
@@ -87,7 +96,6 @@ if st.button("Buscar Ruta de Upgrade"):
         st.error(
             "No se encontró una ruta definida para esa versión."
         )
-
 # --------------------------
 # Analizador de errores
 # --------------------------
@@ -115,6 +123,53 @@ if st.button("Analizar Error"):
 
         for cmd in info["comandos"]:
             st.code(cmd)
+
+# --------------------------
+# Asistente IA
+# --------------------------
+
+st.divider()
+
+st.header("🤖 Asistente IA FortiGate")
+
+consulta = st.text_area(
+    "Describe un problema o consulta FortiGate"
+)
+
+if st.button("Consultar IA"):
+
+    try:
+
+        with st.spinner("Consultando Gemini..."):
+
+            prompt = f"""
+Eres un especialista certificado en Fortinet.
+
+Responde exclusivamente preguntas relacionadas con:
+
+- FortiGate
+- FortiOS
+- Firmware Upgrade
+- Troubleshooting
+- VPN
+- Routing
+- FortiGuard
+
+Consulta del usuario:
+
+{consulta}
+"""
+
+            respuesta = modelo_gemini.generate_content(prompt)
+
+            st.success("Respuesta generada")
+
+            st.write(respuesta.text)
+
+    except Exception as e:
+
+        st.error(f"Error consultando Gemini: {e}")
+
 # --------------------------
 # Footer
 # --------------------------

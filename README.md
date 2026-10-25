@@ -1,217 +1,491 @@
-FortiGate Firmware Upgrade Assistant
+# 🛡️ FortiGate Firmware Upgrade Assistant
 
-Descripción:
+![Python](https://img.shields.io/badge/Python-3.x-blue.svg)
+![Streamlit](https://img.shields.io/badge/Streamlit-WebApp-red.svg)
+![Fortinet](https://img.shields.io/badge/Fortinet-FortiGate-orange.svg)
+![Status](https://img.shields.io/badge/Status-Active-success.svg)
 
-FortiGate Firmware Upgrade Assistant es una aplicación web desarrollada en Flask para ayudar a administradores e ingenieros de redes a planificar, validar y ejecutar actualizaciones de firmware en dispositivos FortiGate de forma segura.
+---
 
-El objetivo es reducir errores durante los procesos de actualización mediante la validación de rutas de upgrade, el análisis de problemas comunes y la generación de listas de verificación antes y después de cada actualización.
+# 📖 Descripción
 
-Problema:
+FortiGate Firmware Upgrade Assistant es una aplicación desarrollada para ayudar a administradores e ingenieros de redes a planificar y validar procesos de actualización de firmware en dispositivos FortiGate.
 
-Las actualizaciones de firmware en dispositivos FortiGate suelen fallar o retrasarse debido a:
+La herramienta centraliza información sobre rutas de actualización, errores comunes, procedimientos recomendados y próximamente incorporará capacidades de Inteligencia Artificial para análisis de incidentes y asistencia técnica contextual.
 
-Rutas de actualización incorrectas.
-Incompatibilidades entre versiones.
-Dependencias desconocidas.
-Problemas de conectividad con FortiGuard.
-Falta de validaciones previas.
+El objetivo principal es reducir riesgos operacionales, minimizar errores humanos y acelerar procesos de troubleshooting durante actividades relacionadas con FortiOS.
 
-Esto provoca tiempo de inactividad, riesgos operacionales y retrasos en las ventanas de mantenimiento.
+---
 
-Usuarios Objetivo
-Administradores de red.
-Ingenieros de redes.
-Técnicos de infraestructura.
-Proveedores de servicios gestionados (MSP).
-Equipos de soporte que administran dispositivos FortiGate.
-Funcionalidades Actuales (Versión 1)
-Consulta de Ruta de Upgrade
+# 🎯 Problema que Resuelve
 
-Permite seleccionar:
+Las actualizaciones de firmware en equipos FortiGate pueden resultar complejas debido a:
 
-Modelo FortiGate
-Versión actual
+- Compatibilidad entre versiones.
+- Saltos obligatorios de firmware.
+- Problemas de conectividad con FortiGuard.
+- Procedimientos incompletos.
+- Falta de documentación centralizada.
+- Riesgos de indisponibilidad durante ventanas de mantenimiento.
 
-Y devuelve:
+Cuando no se siguen las rutas correctas de actualización pueden producirse:
 
-Ruta de actualización recomendada.
-Checklist Pre-Upgrade
+- Fallos de upgrade.
+- Reinicios inesperados.
+- Pérdida temporal de servicios.
+- Problemas de compatibilidad.
+- Incremento en tiempos de soporte.
 
-Genera recomendaciones antes de actualizar:
+---
 
-Backup de configuración.
-Verificación de acceso por consola.
-Validación de espacio disponible.
-Revisión de Release Notes.
-Verificación de alta disponibilidad (HA).
-Confirmación de ventana de mantenimiento.
-Checklist Post-Upgrade
+# 👨‍💻 Usuarios Objetivo
 
-Permite verificar:
+- Administradores de Redes
+- Ingenieros de Infraestructura
+- Ingenieros de Seguridad
+- Analistas de Operaciones
+- Técnicos NOC
+- Técnicos SOC
+- MSP (Managed Service Providers)
+- Partners Fortinet
 
-Versión instalada.
-Funcionamiento de VPNs.
-Conectividad general.
-Estado de protocolos de routing.
-Acceso GUI y SSH.
-Revisión de logs.
-Analizador de Errores
+---
 
-Permite analizar errores comunes relacionados con procesos de actualización de FortiGate.
+# 🚀 Funcionalidades Implementadas
 
-Actualmente soporta:
+---
 
-Timeout connecting to FortiGuard
-Firmware validation failed
-No valid upgrade path found
+## 1. Consulta de Rutas de Upgrade
 
-Para cada error la aplicación muestra:
+Permite validar rutas de actualización soportadas para modelos específicos.
 
-Causa probable.
-Comandos de diagnóstico sugeridos.
-Recomendaciones iniciales de troubleshooting.
-Funcionalidades Futuras
-Integración con IA
+### Ejemplo
 
-Implementación de un sistema RAG (Retrieval-Augmented Generation) basado en:
+**Modelo**
 
-Release Notes de Fortinet
-Upgrade Path Tool
-Compatibility Matrix
-Documentación oficial de FortiOS
+```text
+FG-60F
+```
 
-La IA podrá:
+**Versión actual**
 
-Responder preguntas técnicas.
-Recomendar rutas de actualización.
-Analizar errores avanzados.
-Generar procedimientos personalizados.
-Consultar documentación oficial de Fortinet.
-Análisis de Logs
-
-Permitirá cargar y analizar:
-
-Logs de FortiGate.
-Resultados de diagnósticos CLI.
-Mensajes de error durante upgrades.
-Compatibilidad Ampliada
-
-Soporte para:
-
-Múltiples modelos FortiGate.
-Más versiones de FortiOS.
-Validaciones avanzadas de compatibilidad.
-Tecnologías Utilizadas
-Python
-Flask
-HTML5
-Bootstrap
-JSON
-Estructura del Proyecto
-
-firmware-upgrade-assistant
-
-├── README.md
- ├── app.py
- ├── requirements.txt
- ├── backups
- ├── capturas
- ├── data
- │ ├── firmware_paths.json
- │ └── known_errors.json
- ├── docs
- │ ├── compatibility-matrix
- │ ├── fortigate-release-notes
- │ └── upgrade-paths
- ├── notebooks
- ├── static
- └── templates
- └── index.html
-
-Instalación
-
-Clonar el repositorio:
-
-git clone <URL_DEL_REPOSITORIO>
-
-Entrar al proyecto:
-
-cd firmware-upgrade-assistant
-
-Instalar dependencias:
-
-pip install -r requirements.txt
-
-Ejecución
-
-Iniciar la aplicación:
-
-python app.py
-
-Abrir en el navegador:
-
-http://127.0.0.1:5000
-
-Ejemplo de Uso
-
-Modelo:
-
-FG-100F
-
-Versión:
-
+```text
 6.4.8
+```
 
-Resultado:
+**Resultado**
 
+```text
 7.0.5
- 7.0.13
- 7.2.8
+↓
+7.0.13
+↓
+7.2.8
+```
 
-Capturas
+---
 
-Las capturas de pantalla de la aplicación se almacenan en:
+## 2. Checklist Pre-Upgrade
 
-capturas/
+La aplicación genera una lista de buenas prácticas antes de realizar el cambio.
 
-Incluyen:
+### Verificaciones recomendadas
 
-Pantalla principal.
-Consulta de rutas de actualización.
-Analizador de errores.
-Resultados de validación.
-Estado del Proyecto
+- Backup de configuración
+- Revisión de Release Notes
+- Validación de acceso por consola
+- Verificación de espacio disponible
+- Confirmación de ventana de mantenimiento
+- Revisión de HA (High Availability)
 
-✅ Versión 1 completada
+---
 
-✅ Aplicación Flask funcional
+## 3. Checklist Post-Upgrade
 
-✅ Interfaz Bootstrap responsiva
+Después de la actualización permite validar:
 
-✅ Consulta de rutas de upgrade
+- Versión instalada
+- Estado de VPNs
+- Estado de OSPF
+- Estado de BGP
+- Acceso GUI
+- Acceso SSH
+- Logs del sistema
+- Conectividad general
 
-✅ Persistencia de modelo y versión seleccionados
+---
 
-✅ Checklists pre y post actualización
+## 4. Analizador de Errores
 
-✅ Analizador de errores comunes
+Permite consultar errores frecuentes y mostrar información relevante de troubleshooting.
 
-✅ Base de conocimiento en JSON
+### Errores Soportados
 
-✅ Proyecto preparado para integración con IA
+#### Timeout connecting to FortiGuard
 
-⬜ Integración con IA mediante RAG
+**Causa probable**
 
-⬜ Consulta de documentación oficial de Fortinet
+```text
+Problema de conectividad hacia los servidores FortiGuard.
+```
 
-⬜ Análisis automatizado de logs
+**Comandos sugeridos**
 
-⬜ Compatibilidad ampliada para modelos FortiGate
+```bash
+execute ping service.fortiguard.net
+execute traceroute service.fortiguard.net
+diagnose debug rating
+```
 
-Autor
+---
 
-Luis Colón
+#### Firmware validation failed
+
+**Causa probable**
+
+```text
+Imagen corrupta o incompatible.
+```
+
+**Acciones recomendadas**
+
+```text
+Verificar checksum.
+Descargar nuevamente el firmware.
+Validar modelo del equipo.
+```
+
+---
+
+#### No valid upgrade path found
+
+**Causa probable**
+
+```text
+La versión requiere upgrades intermedios.
+```
+
+**Acciones recomendadas**
+
+```text
+Consultar Upgrade Path Tool.
+Revisar Release Notes.
+```
+
+---
+
+# 🤖 Integración de Inteligencia Artificial
+
+## Estado Actual
+
+Se ha incorporado una sección denominada:
+
+```text
+🤖 Asistente IA FortiGate
+```
+
+como base para integrar capacidades generativas utilizando Gemini.
+
+---
+
+## Objetivos de la IA
+
+La IA permitirá responder preguntas como:
+
+### Troubleshooting
+
+```text
+¿Por qué no puedo conectar con FortiGuard?
+```
+
+```text
+¿Qué significa Firmware Validation Failed?
+```
+
+```text
+¿Cómo diagnostico problemas de rating?
+```
+
+---
+
+### Upgrade
+
+```text
+¿Cómo actualizo un FG-100F desde 6.4.8?
+```
+
+```text
+¿Qué debo validar antes de una actualización?
+```
+
+```text
+¿Cuáles son los riesgos de saltar versiones?
+```
+
+---
+
+### Operación
+
+```text
+¿Cómo verifico el estado HA?
+```
+
+```text
+¿Qué comandos usar para revisar BGP?
+```
+
+```text
+¿Cómo validar VPNs después de un upgrade?
+```
+
+---
+
+# 🧠 Roadmap de IA
+
+## Fase 1
+
+✅ Incorporación del módulo IA
+
+✅ Interfaz en Streamlit
+
+⬜ Conexión con Gemini
+
+---
+
+## Fase 2
+
+Implementación de consultas técnicas mediante Gemini.
+
+Ejemplos:
+
+```text
+Describe este error.
+```
+
+```text
+Analiza este log.
+```
+
+```text
+Recomiéndame acciones correctivas.
+```
+
+---
+
+## Fase 3
+
+Implementación de RAG (Retrieval-Augmented Generation).
+
+Documentación prevista:
+
+- Release Notes
+- Upgrade Paths
+- Compatibility Matrix
+- KB Articles
+- Procedimientos internos
+- Manuales de operación
+
+---
+
+## Fase 4
+
+Análisis automático de logs CLI.
+
+Ejemplos:
+
+```text
+diagnose sys session stat
+```
+
+```text
+get system status
+```
+
+```text
+diagnose debug flow
+```
+
+```text
+event logs
+```
+
+---
+
+# 📂 Base de Conocimiento
+
+## firmware_paths.json
+
+Contiene las rutas de actualización soportadas.
+
+### Ejemplo
+
+```json
+{
+  "FG-60F": {
+    "6.4.8": [
+      "7.0.5",
+      "7.0.13",
+      "7.2.8"
+    ]
+  }
+}
+```
+
+---
+
+## known_errors.json
+
+Contiene errores conocidos.
+
+### Ejemplo
+
+```json
+{
+  "Timeout connecting to FortiGuard": {
+    "causa": "Problema de conectividad hacia los servidores FortiGuard.",
+    "comandos": [
+      "execute ping service.fortiguard.net",
+      "execute traceroute service.fortiguard.net"
+    ]
+  }
+}
+```
+
+---
+
+# 🏗️ Arquitectura
+
+```text
++---------------------+
+|      Usuario        |
++----------+----------+
+           |
+           v
++---------------------+
+| Streamlit FrontEnd  |
++----------+----------+
+           |
+           v
++---------------------+
+|    Lógica Python    |
++----------+----------+
+           |
++----------+----------+
+|                     |
+v                     v
+
+firmware_paths     known_errors
+      JSON              JSON
+
+           |
+           v
+
+      Gemini AI
+    (Próxima Fase)
+```
+
+---
+
+# 📁 Estructura del Proyecto
+
+```text
+firmware-upgrade-assistant/
+│
+├── streamlit_app.py
+├── README.md
+├── requirements.txt
+│
+├── data/
+│   ├── firmware_paths.json
+│   └── known_errors.json
+│
+├── capturas/adas
+
+- Python
+- Streamlit
+- JSON
+- Git
+- GitHub
+
+Próximamente:
+
+- Gemini API
+- LangChain
+- ChromaDB
+- RAG
+
+---
+
+# 📥 Instalación
+
+### Clonar repositorio
+
+```bash
+git clone <URL_REPOSITORIO>
+```
+
+### Entrar al directorio
+
+```bash
+cd firmware-upgrade-assistant
+```
+
+### Instalar dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# ▶️ Ejecución
+
+```bash
+streamlit run streamlit_app.py
+```
+
+Acceder desde navegador:
+
+```text
+http://localhost:8501
+```
+
+---
+
+# ✅ Estado del Proyecto
+
+| Componente | Estado |
+|------------|---------|
+| Consulta de Upgrade | ✅ |
+| Checklist Pre-Upgrade | ✅ |
+| Checklist Post-Upgrade | ✅ |
+| Analizador de Errores | ✅ |
+| Base de Conocimiento JSON | ✅ |
+| Streamlit UI | ✅ |
+| Asistente IA | ✅ |
+| Gemini | 🚧 |
+| RAG | 🚧 |
+| Análisis de Logs | 🚧 |
+
+---
+
+# 🔮 Futuras Mejoras
+
+- Integración completa con Gemini
+- Implementación de RAG
+- Carga de documentación Fortinet
+- Interpretación automática de logs
+- Compatibilidad con más modelos
+- Exportación de reportes
+- Recomendaciones de upgrade basadas en IA
+- Dashboard operacional
+
+---
+
+# 👤 Autor
+
+**Luis Colón**
 
 Máster en Inteligencia Artificial
 
-Proyecto académico orientado a la automatización y asistencia en procesos de actualización de firmware para dispositivos FortiGate.
+Proyecto orientado a la automatización, asistencia técnica y reducción de riesgo operacional en procesos de actualización de firmware FortiGate.
