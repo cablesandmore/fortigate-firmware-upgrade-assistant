@@ -138,25 +138,22 @@ consulta = st.text_area(
 )
 
 if st.button("Consultar IA"):
-    st.info(
-        "Módulo Gemini en mantenimiento."
-    )
 
     if not consulta.strip():
+
         st.warning("Introduce una consulta.")
 
     elif modelo_gemini is None:
+
         st.error(
             "Gemini no está disponible. Verifica la API Key."
         )
 
     else:
 
-         try:
+        try:
 
-            with st.spinner(
-                "Consultando asistente IA..."
-            ):
+            with st.spinner("Consultando asistente IA..."):
 
                 prompt = f"""
 Eres un especialista Fortinet.
@@ -176,9 +173,7 @@ Consulta:
 {consulta}
 """
 
-                respuesta = modelo_gemini.generate_content(
-                    prompt
-                )
+                respuesta = modelo_gemini.generate_content(prompt)
 
                 st.success("Respuesta generada")
 
@@ -198,7 +193,6 @@ Consulta:
                 st.error(
                     f"Error consultando Gemini: {e}"
                 )
-
 # --------------------------
 # Footer
 # --------------------------
