@@ -1,29 +1,28 @@
 import streamlit as st
 import json
 import os
-import google.generativeai as genai
+from google import genai
 
-# --------------------------
 # Gemini
-# --------------------------
 
 api_key = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
 
-modelo_gemini = None
-
 if api_key:
     genai.configure(api_key=api_key)
+    modelo_gemini = genai.GenerativeModel("gemini-3.8-flash")
+else:
+    modelo_gemini = None
 
-    try:
-        modelo_gemini = genai.GenerativeModel(
-            "gemini-3.8-flash"
-        )
-    except Exception:
-        modelo_gemini = None
+# Cargar datos
 
-# --------------------------
-# Cabecera
-# --------------------------
+with open("data/firmware_paths.json") as f:
+    firmware_data = json.load(f)
+
+with open("data/known_errors.json") as f:
+    error_data = json.load(f)
+
+# Streamlit UI
+
 st.set_page_config(
     page_title="FortiGate Firmware Upgrade Assistant",
     page_icon="🛡️",
@@ -137,6 +136,9 @@ consulta = st.text_area(
 )
 
 if st.button("Consultar IA"):
+    st.info(
+        "Módulo Gemini en mantenimiento."
+    )
 
     if not consulta.strip():
         st.warning("Introduce una consulta.")
