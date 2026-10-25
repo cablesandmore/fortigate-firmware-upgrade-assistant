@@ -3,29 +3,23 @@ import json
 import os
 import google.generativeai as genai
 
-api_key = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
-
-genai.configure(api_key=api_key)
-
-modelo_gemini = genai.GenerativeModel("gemini-1.5-flash")
-
 # --------------------------
-# Cargar datos
+# Gemini
 # --------------------------
-
-with open("data/firmware_paths.json") as f:
-    firmware_data = json.load(f)
-
-with open("data/known_errors.json") as f:
-    error_data = json.load(f)
-
-import os
 
 api_key = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
 
-genai.configure(api_key=api_key)
+modelo_gemini = None
 
-modelo_gemini = genai.GenerativeModel("gemini-3.8-flash")  
+if api_key:
+    genai.configure(api_key=api_key)
+
+    try:
+        modelo_gemini = genai.GenerativeModel(
+            "gemini-3.8-flash"
+        )
+    except Exception:
+        modelo_gemini = None
 
 # --------------------------
 # Cabecera
@@ -144,37 +138,53 @@ consulta = st.text_area(
 
 if st.button("Consultar IA"):
 
-    try:
+    if not consulta.strip():
+        st.warning("Introduce una consulta.")
 
-        with st.spinner("Consultando Gemini..."):
+    elif modelo_gemini is None:
+        st.error(
+            "Gemini no está disponible. Verifica la API Key."
+        )
 
-            prompt = f"""
-Eres un especialista certificado en Fortinet.
+    else:
 
-Responde exclusivamente preguntas relacionadas con:
+        try:
+
+            with st.spinner(
+                "Consultando asistente IA..."
+            ):
+
+                prompt = f"""
+Eres un especialista Fortinet.
+
+Responde únicamente preguntas sobre:
 
 - FortiGate
 - FortiOS
-- Firmware Upgrade
-- Troubleshooting
+- FortiGuard
 - VPN
 - Routing
-- FortiGuard
+- Troubleshooting
+- Firmware Upgrade
 
-Consulta del usuario:
+Consulta:
 
 {consulta}
 """
 
-            respuesta = modelo_gemini.generate_content(prompt)
+                respuesta = modelo_gemini.generate_content(
+                    prompt
+                )
 
-            st.success("Respuesta generada")
+                st.success("Respuesta generada")
 
-            st.write(respuesta.text)
+                st.write(respuesta.text)
 
-    except Exception as e:
+        except Exception as e:
 
-        st.error(f"Error consultando Gemini: {e}")
+            st.error(
+                f"Error consultando Gemini: {e}"
+            )
 
 # --------------------------
 # Footer
@@ -183,6 +193,6 @@ Consulta del usuario:
 st.divider()
 
 st.caption(
-    "FortiGate Firmware Upgrade Assistant v1.0 | "
-    "Proyecto académico - Máster en Inteligencia Artificial"
+    "FortiGate Firmware Upgrade Assistant v1.1 | "
+    "Proyecto académico - Máster en ML e Inteligencia Artificial"
 )
