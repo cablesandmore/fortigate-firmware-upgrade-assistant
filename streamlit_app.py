@@ -175,25 +175,61 @@ Consulta:
 
                 respuesta = modelo_gemini.generate_content(prompt)
 
-                st.success("Respuesta generada")
+                if hasattr(respuesta, "text") and respuesta.text:
 
-                st.write(respuesta.text)
+                    st.success("Respuesta generada")
+                    st.write(respuesta.text)
+
+                else:
+
+                    st.warning(
+                        "La IA no devolvió contenido para esta consulta."
+                    )
 
         except Exception as e:
-            st.error(str(e))
 
-            if "429" in str(e):
+            error_msg = str(e)
+
+            if "429" in error_msg:
 
                 st.warning(
-                    "Se alcanzó el límite diario de consultas de Gemini. "
+                    "⚠️ Se alcanzó el límite de consultas de Gemini. "
                     "Inténtalo nuevamente más tarde."
+                )
+
+            elif "403" in error_msg:
+
+                st.error(
+                    "🔒 La API Key no tiene permisos suficientes "
+                    "o el servicio no está habilitado."
+                )
+
+            elif "401" in error_msg:
+
+                st.error(
+                    "🔑 La API Key es inválida o ha expirado."
+                )
+
+            elif "404" in error_msg:
+
+                st.error(
+                    "📌 El modelo configurado no está disponible."
+                )
+
+            elif "500" in error_msg or "503" in error_msg:
+
+                st.error(
+                    "🌐 El servicio de Gemini no está disponible temporalmente."
                 )
 
             else:
 
                 st.error(
-                    f"Error consultando Gemini: {e}"
+                    "❌ Ocurrió un error inesperado al consultar Gemini."
                 )
+
+                with st.expander("Detalles técnicos"):
+                    st.code(error_msg)
 # --------------------------
 # Footer
 # --------------------------
