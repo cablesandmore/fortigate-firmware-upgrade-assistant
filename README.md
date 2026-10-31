@@ -313,20 +313,31 @@ firmware_paths     known_errors
 
 ```text
 firmware-upgrade-assistant/
-│
-├── streamlit_app.py
 ├── README.md
 ├── requirements.txt
+├── streamlit_app.py
+├── app.py
+├── Procfile
+├── .gitignore
 │
 ├── data/
 │   ├── firmware_paths.json
 │   └── known_errors.json
 │
-├── backups/
+├── docs/
+│   ├── compatibility-matrix/
+│   ├── fortigate-release-notes/
+│   └── upgrade-paths/
 │
 ├── capturas/
+│   ├── version0-home.png
+│   ├── version0-upgrade-route.png
+│   └── version1-error-analysis.png
 │
+├── static/
+├── notebooks/
 └── templates/
+    └── index.html
 ```
 
 ---
