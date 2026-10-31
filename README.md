@@ -446,6 +446,220 @@ La aplicación utiliza:
 
 ### RAG para documentación Fortinet
 
+- Release Notes
+- Upgrade Guides
+- Compatibility Matrix
+- Knowledge Base Articles
+- Best Practices
+
+### Config Analyzer
+
+Análisis automático de configuraciones FortiGate.
+
+### Runbook Generator
+
+Generación automática de procedimientos de actualización.
+
+### Exportación de Reportes
+
+- PDF
+- DOCX
+
+### Historial de Consultas IA
+
+Almacenamiento y búsqueda de consultas realizadas.
+
+---
+
+# 🤖 Proceso con IA
+
+## Modelo utilizado
+
+La aplicación integra Google Gemini como motor de Inteligencia Artificial para asistir a operadores, administradores e ingenieros durante tareas de actualización, resolución de incidencias y consulta técnica relacionada con dispositivos FortiGate.
+
+## Conocimiento utilizado
+
+La aplicación combina información estructurada almacenada localmente con capacidades de Inteligencia Artificial proporcionadas por Google Gemini.
+
+Las fuentes de conocimiento utilizadas actualmente son:
+
+- `firmware_paths.json`
+- `known_errors.json`
+
+Estas bases de conocimiento permiten consultar rutas de actualización soportadas y errores conocidos sin depender de servicios externos.
+
+## Prompt utilizado
+
+Las consultas enviadas a Gemini utilizan un prompt especializado que restringe las respuestas a temas relacionados con:
+
+- FortiGate
+- FortiOS
+- FortiGuard
+- VPN
+- Routing
+- Troubleshooting
+- Firmware Upgrade
+
+El objetivo es mantener las respuestas enfocadas en tecnologías Fortinet y reducir resultados fuera de contexto.
+
+## Tareas delegadas a la IA
+
+- Interpretación de consultas en lenguaje natural.
+- Explicación de conceptos técnicos.
+- Generación de recomendaciones de troubleshooting.
+- Asistencia en consultas operacionales relacionadas con Fortinet.
+
+## Tareas supervisadas por el usuario
+
+- Validación técnica de las respuestas.
+- Evaluación de riesgos operacionales.
+- Ejecución de cambios sobre dispositivos.
+- Aprobación final de acciones correctivas.
+
+La aplicación no realiza cambios automáticos sobre equipos FortiGate y todas las recomendaciones requieren validación humana antes de su aplicación.
+
+---
+
+# 📥 Entradas y 📤 Salidas
+
+## Entradas
+
+La aplicación recibe uno o varios de los siguientes elementos:
+
+- Modelo FortiGate.
+- Versión actual de FortiOS.
+- Consulta técnica en lenguaje natural.
+- Error observado.
+- Síntomas reportados por el usuario.
+
+## Salidas
+
+La aplicación genera:
+
+- Ruta de actualización recomendada.
+- Checklists operacionales.
+- Información sobre errores conocidos.
+- Comandos sugeridos.
+- Recomendaciones técnicas.
+- Respuestas generadas mediante IA.
+
+---
+
+# ✅ Criterios de Aceptación
+
+La aplicación cumple con los requisitos cuando:
+
+- Proporciona rutas de actualización disponibles para modelos registrados.
+- Muestra errores conocidos y recomendaciones asociadas.
+- Permite consultas técnicas mediante Gemini.
+- Gestiona correctamente errores de comunicación con la API.
+- Mantiene disponibles las funciones locales aunque la IA no esté disponible.
+
+## Casos límite
+
+### Modelo no registrado
+
+**Entrada**
+
+```text
+FG-XYZ
+```
+
+**Resultado esperado**
+
+```text
+No se encontraron rutas de actualización para el modelo solicitado.
+```
+
+### Error desconocido
+
+**Entrada**
+
+```text
+Unknown Error
+```
+
+**Resultado esperado**
+
+```text
+No existe información suficiente para emitir una recomendación confiable.
+```
+
+### API no disponible
+
+**Entrada**
+
+Consulta técnica mediante Gemini.
+
+**Resultado esperado**
+
+```text
+Servicio temporalmente no disponible.
+```
+
+---
+
+# 🧪 Pruebas y Mejoras
+
+## Metodología de prueba
+
+La aplicación fue evaluada mediante escenarios reales relacionados con administración, actualización y troubleshooting de dispositivos FortiGate.
+
+## Casos evaluados
+
+- Consulta de rutas de actualización.
+- Validación de checklist pre-upgrade.
+- Validación de checklist post-upgrade.
+- Consulta de errores conocidos.
+- Generación de recomendaciones mediante IA.
+- Manejo de errores de Gemini.
+
+## Resultados
+
+Las pruebas demostraron que la aplicación centraliza información operativa relevante y simplifica la consulta de rutas de actualización, errores conocidos y asistencia técnica mediante IA.
+
+## Mejoras implementadas
+
+Durante las pruebas se identificaron oportunidades de mejora relacionadas con la precisión y relevancia de las respuestas.
+
+Como resultado se realizaron los siguientes ajustes:
+
+- Refinamiento de prompts.
+- Mejora de manejo de excepciones.
+- Optimización de la estructura de respuestas.
+- Ampliación de la base de conocimiento.
+- Mejora de la experiencia de usuario.
+
+---
+
+# ⚠️ Limitaciones
+
+- La calidad de las respuestas depende de la información disponible.
+- Las respuestas generadas por IA requieren validación humana.
+- La aplicación no ejecuta cambios automáticos en dispositivos FortiGate.
+- La disponibilidad de la IA depende de la disponibilidad del servicio Gemini.
+- La cobertura actual está enfocada principalmente en tecnologías Fortinet.
+
+---
+
+# 🎤 Pitch Ejecutivo
+
+Los ingenieros de redes invierten tiempo consultando múltiples fuentes de información para planificar actualizaciones y resolver incidencias en dispositivos FortiGate.
+
+FortiGate AI Operations Assistant centraliza rutas de actualización, errores conocidos, procedimientos operacionales y asistencia técnica en una única plataforma.
+
+La integración con Inteligencia Artificial permite responder consultas técnicas especializadas, generar recomendaciones de troubleshooting y asistir en tareas operacionales relacionadas con FortiGate mediante procesamiento de lenguaje natural.
+
+Las pruebas realizadas permitieron optimizar los prompts y mejorar la precisión de las recomendaciones generadas.
+
+Como siguiente paso se implementará una arquitectura RAG basada en documentación oficial de Fortinet para ampliar la cobertura y precisión de las respuestas.
+
+---
+
+## Próximas Mejoras
+
+### RAG para documentación Fortinet
+
 Fuentes previstas:
 
 - Release Notes
