@@ -1,2 +1,3 @@
 .streamlit/secrets.toml
-backups/
+*_backup.py
+*_backup*.py
