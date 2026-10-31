@@ -1,7 +1,7 @@
+.DS_Store
+backups/
 .streamlit/secrets.toml
-*_backup.py
-*_backup*.py
-requirements-full.txt
-.env
 __pycache__/
 *.pyc
+*_backup.py
+requirements-full.txt
