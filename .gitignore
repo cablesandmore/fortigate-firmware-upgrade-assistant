@@ -1,3 +1,4 @@
 .streamlit/secrets.toml
 *_backup.py
 *_backup*.py
+requirements-full.txt
